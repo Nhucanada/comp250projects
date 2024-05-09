@@ -5,94 +5,94 @@
 package solitairecipher;
 
 public class SolitaireCipher {
-	public Deck3 key;
+    public Deck key;
 
-	public SolitaireCipher (Deck3 key) {
-		this.key = new Deck3(key); // deep copy of the deck
-	}
+    public SolitaireCipher (Deck key) {
+        this.key = new Deck(key); // deep copy of the deck
+    }
 
-	/*
-	 * TODO: Generates a keystream of the given size
-	 */
-	public int[] getKeystream(int size) {
+    /*
+     * TODO: Generates a keystream of the given size
+     */
+    public int[] getKeystream(int size) {
 
-		int[] keystream = new int[size];
+        int[] keystream = new int[size];
 
 
-		for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
 
-			int value = key.generateNextKeystreamValue();
-			keystream[i] = value;
+            int value = key.generateNextKeystreamValue();
+            keystream[i] = value;
 
-		}
+        }
 
-		return keystream;
+        return keystream;
 
-	}
+    }
 
-	/*
-	 * TODO: Encodes the input message using the algorithm described in the pdf.
-	 */
-	public String encode(String msg) {
+    /*
+     * TODO: Encodes the input message using the algorithm described in the pdf.
+     */
+    public String encode(String msg) {
 
-		String message = "";
-		String encodedMessage = "";
+        String message = "";
+        String encodedMessage = "";
 
-		for(int i = 0; i < msg.length(); i++){
+        for(int i = 0; i < msg.length(); i++){
 
-			char c = msg.charAt(i);
+            char c = msg.charAt(i);
 
-			if((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')){
+            if((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')){
 
-				message += (c + "").toUpperCase();
+                message += (c + "").toUpperCase();
 
-			}
+            }
 
-		}
+        }
 
-		int[] keyStream = getKeystream(message.length());
+        int[] keyStream = getKeystream(message.length());
 
-		for(int k = 0; k < message.length(); k++){
+        for(int k = 0; k < message.length(); k++){
 
-			int unicodeChar = message.charAt(k) + keyStream[k];
+            int unicodeChar = message.charAt(k) + keyStream[k];
 
-			while(unicodeChar > 'Z'){
+            while(unicodeChar > 'Z'){
 
-				unicodeChar -= 26;
+                unicodeChar -= 26;
 
-			}
+            }
 
-			encodedMessage += (char) unicodeChar;
+            encodedMessage += (char) unicodeChar;
 
-		}
+        }
 
-		return encodedMessage;
+        return encodedMessage;
 
-	}
+    }
 
-	/*
-	 * TODO: Decodes the input message using the algorithm described in the pdf.
-	 */
-	public String decode(String msg) {
+    /*
+     * TODO: Decodes the input message using the algorithm described in the pdf.
+     */
+    public String decode(String msg) {
 
-		String decodedMessage = "";
-		int[] keyStream = getKeystream(msg.length());
+        String decodedMessage = "";
+        int[] keyStream = getKeystream(msg.length());
 
-		for(int i = 0; i < msg.length(); i++){
+        for(int i = 0; i < msg.length(); i++){
 
-			int unicodeChar = msg.charAt(i) - keyStream[i];
+            int unicodeChar = msg.charAt(i) - keyStream[i];
 
-			while(unicodeChar < 'A'){
+            while(unicodeChar < 'A'){
 
-				unicodeChar += 26;
+                unicodeChar += 26;
 
-			}
+            }
 
-			decodedMessage += (char) unicodeChar;
-		}
+            decodedMessage += (char) unicodeChar;
+        }
 
-		return decodedMessage;
+        return decodedMessage;
 
-	}
+    }
 
 }

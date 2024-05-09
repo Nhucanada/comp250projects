@@ -1,5 +1,6 @@
+package solitairecipher;
 
-import solitairecipher.Deck3;
+import solitairecipher.Deck;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -7,10 +8,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TestsJuliaThoughtOf {
 
-    public String deckToString(Deck3 d) {
+    public String deckToString(Deck d) {
         //setting string to be first card of deck
         String printedDeck = d.head.toString();
-        Deck3.Card iterator = d.head;
+        Deck.Card iterator = d.head;
 
         //iterating through list to get final string
 
@@ -25,7 +26,7 @@ public class TestsJuliaThoughtOf {
     //testing the first constructor with input of 4 cards per suit and 3 suits
     @Test
     public void constructor1InputsTest() {
-        Deck3 testDeck = new Deck3(4,3);
+        Deck testDeck = new Deck(4,3);
         //setting string to be first card of deck
         String printedDeck = deckToString(testDeck);
 
@@ -36,16 +37,16 @@ public class TestsJuliaThoughtOf {
     //checking if the next reference of the last element of the linked list is the head of the list for the first constructor
     @Test
     public void constructor1CircularTest() {
-        Deck3 testDeck = new Deck3(2, 4);
+        Deck testDeck = new Deck(2, 4);
         String printedDeck = testDeck.head.toString();
-        Deck3.Card iterator = testDeck.head;
+        Deck.Card iterator = testDeck.head;
 
         for (int i = 1; i < testDeck.numOfCards; i++) {
             iterator = iterator.next;
         }
 
-        Deck3.Card testHead = testDeck.head;
-        Deck3.Card testHead2 = iterator.next;
+        Deck.Card testHead = testDeck.head;
+        Deck.Card testHead2 = iterator.next;
 
         Assertions.assertEquals(testHead, testHead2);
     }
@@ -54,16 +55,16 @@ public class TestsJuliaThoughtOf {
     //checking if the prev reference of the head is the last element of the list
     @Test
     public void constructor1CircularTest2() {
-        Deck3 testDeck = new Deck3(2, 4);
+        Deck testDeck = new Deck(2, 4);
         String printedDeck = testDeck.head.toString();
-        Deck3.Card iterator = testDeck.head;
+        Deck.Card iterator = testDeck.head;
 
         for (int i = 1; i < testDeck.numOfCards; i++) {
             iterator = iterator.next;
         }
 
-        Deck3.Card testTail = testDeck.head.prev;
-        Deck3.Card testTail2 = iterator;
+        Deck.Card testTail = testDeck.head.prev;
+        Deck.Card testTail2 = iterator;
 
         Assertions.assertEquals(testTail2, testTail);
     }
@@ -72,7 +73,7 @@ public class TestsJuliaThoughtOf {
     //does the first constructor work with only one non-joker card?
     @Test
     public void constructor1OneCard() {
-        Deck3 testerDeck = new Deck3(1, 1);
+        Deck testerDeck = new Deck(1, 1);
 
         Assertions.assertEquals("AC", testerDeck.head.toString());
         Assertions.assertEquals("RJ", testerDeck.head.next.toString());
@@ -84,10 +85,10 @@ public class TestsJuliaThoughtOf {
     @Test
     public void constructor2MatchCheck() {
         //printing out all the card in one card
-        Deck3 origDeck = new Deck3(7, 4);
+        Deck origDeck = new Deck(7, 4);
 
         String printedOrigDeck = origDeck.head.toString();
-        Deck3.Card iterator = origDeck.head;
+        Deck.Card iterator = origDeck.head;
 
         //iterating through list to get final string
         for(int i = 1; i < origDeck.numOfCards; i++) {
@@ -96,10 +97,10 @@ public class TestsJuliaThoughtOf {
         }
 
         //copying the deck and printing out all the cards in that deck
-        Deck3 copyDeck = new Deck3(origDeck);
+        Deck copyDeck = new Deck(origDeck);
 
         String printedCopyDeck = copyDeck.head.toString();
-        Deck3.Card iterator2 = copyDeck.head;
+        Deck.Card iterator2 = copyDeck.head;
 
         //iterating through list to get final string
         for(int i = 1; i < copyDeck.numOfCards; i++) {
@@ -119,14 +120,14 @@ public class TestsJuliaThoughtOf {
     @Test
     public void constructor2DeepCopy() {
         //printing out all the card in one card
-        Deck3 origDeck = new Deck3(1, 3);
+        Deck origDeck = new Deck(1, 3);
 
         //copying the deck and printing out all the cards in that deck
-        Deck3 copyDeck = new Deck3(origDeck);
+        Deck copyDeck = new Deck(origDeck);
 
 
         String printedOrigDeck = origDeck.head.toString();
-        Deck3.Card iterator = origDeck.head;
+        Deck.Card iterator = origDeck.head;
 
         //iterating through list to get final string
         for(int i = 1; i < origDeck.numOfCards; i++) {
@@ -134,8 +135,8 @@ public class TestsJuliaThoughtOf {
             printedOrigDeck = printedOrigDeck + " " + iterator.toString();
         }
 
-        Deck3 testerDeck = new Deck3(1, 1);
-        Deck3.Card testerCard = testerDeck.head;
+        Deck testerDeck = new Deck(1, 1);
+        Deck.Card testerCard = testerDeck.head;
 
         origDeck.addCard(testerCard);
 
@@ -149,8 +150,8 @@ public class TestsJuliaThoughtOf {
     //does the second constructor work with a second deck
     @Test
     public void constructor2EmptyDeck() {
-        Deck3 testDeck = new Deck3();
-        Deck3 copyDeck = new Deck3(testDeck);
+        Deck testDeck = new Deck();
+        Deck copyDeck = new Deck(testDeck);
 
         Assertions.assertEquals(0, copyDeck.numOfCards);
         Assertions.assertEquals(null, copyDeck.head);
@@ -160,10 +161,10 @@ public class TestsJuliaThoughtOf {
     //checking if numOfCards is updated after addCard()
     @Test
     public void addCheck1() {
-        Deck3 testDeck = new Deck3(2,1);
+        Deck testDeck = new Deck(2,1);
         int numCards = testDeck.numOfCards;
-        Deck3 addingDeck = new Deck3(6,3);
-        Deck3.Card n = addingDeck.head;
+        Deck addingDeck = new Deck(6,3);
+        Deck.Card n = addingDeck.head;
 
         for (int i = 0; i < 4; i++) {
             n = n.next;
@@ -177,9 +178,9 @@ public class TestsJuliaThoughtOf {
     //checking if circularity maintained after addCard()
     @Test
     public void addCheck2() {
-        Deck3 testDeck = new Deck3(2,3);
-        Deck3 addingDeck = new Deck3(6,4);
-        Deck3.Card n = addingDeck.head;
+        Deck testDeck = new Deck(2,3);
+        Deck addingDeck = new Deck(6,4);
+        Deck.Card n = addingDeck.head;
 
         testDeck.addCard(n);
 
@@ -191,9 +192,9 @@ public class TestsJuliaThoughtOf {
     //can you call addCard() on an empty deck?
     @Test
     public void addCheck3() {
-        Deck3 testDeck = new Deck3();
-        Deck3 addingDeck = new Deck3(6,4);
-        Deck3.Card n = addingDeck.head;
+        Deck testDeck = new Deck();
+        Deck addingDeck = new Deck(6,4);
+        Deck.Card n = addingDeck.head;
         testDeck.addCard(n);
 
         Assertions.assertEquals(testDeck.head, testDeck.head.next);
@@ -203,7 +204,7 @@ public class TestsJuliaThoughtOf {
     //is the list still circular after being shuffled
     @Test
     public void shuffleCheck1() {
-        Deck3 testDeck = new Deck3(4,2);
+        Deck testDeck = new Deck(4,2);
         int num = testDeck.numOfCards;
         testDeck.shuffle();
 
@@ -214,12 +215,12 @@ public class TestsJuliaThoughtOf {
     //checking if Deck.locateJoker() returns a Joker of the specified colour
     @Test
     public void jokerTest() {
-        Deck3 testDeck = new Deck3(11, 4);
+        Deck testDeck = new Deck(11, 4);
         testDeck.shuffle();
-        Deck3.Joker j = testDeck.locateJoker("red");
+        Deck.Joker j = testDeck.locateJoker("red");
         String jColor = j.getColor();
 
-        Deck3.Joker j2 = testDeck.locateJoker("black");
+        Deck.Joker j2 = testDeck.locateJoker("black");
         String j2Color = j2.getColor();
 
         Assertions.assertEquals("red", jColor);
@@ -229,7 +230,7 @@ public class TestsJuliaThoughtOf {
     //testing moveCard() for a card in the non-head position
     @Test
     public void moveCheck1() {
-        Deck3 testDeck = new Deck3(2, 2);
+        Deck testDeck = new Deck(2, 2);
 
         testDeck.moveCard(testDeck.head.next, 2);
 
@@ -240,7 +241,7 @@ public class TestsJuliaThoughtOf {
     //testing moveCard() for a card in the head position
     @Test
     public void moveCheck2() {
-        Deck3 testDeck = new Deck3(2, 2);
+        Deck testDeck = new Deck(2, 2);
         testDeck.moveCard(testDeck.head, 2);
 
         Assertions.assertEquals("AC 2D RJ BJ 2C AD", deckToString(testDeck));
@@ -249,7 +250,7 @@ public class TestsJuliaThoughtOf {
     //testing if moveCard() works for a non-head card in a bigger deck
     @Test
     public void moveCheck3() {
-        Deck3 testDeck = new Deck3(5,2);
+        Deck testDeck = new Deck(5,2);
         testDeck.moveCard(testDeck.head.next.next, 4);
 
         Assertions.assertEquals("AC 2C 4C 5C AD 2D 3C 3D 4D 5D RJ BJ", deckToString(testDeck));
@@ -258,21 +259,21 @@ public class TestsJuliaThoughtOf {
     //checking if cards in right order after triple cut
     @Test
     public void tripleCut1() {
-        Deck3 d = new Deck3();
+        Deck d = new Deck();
 
-        Deck3.PlayingCard c1 = d.new PlayingCard(Deck3.suitsInOrder[0], 5);
-        Deck3.PlayingCard c2 = d.new PlayingCard(Deck3.suitsInOrder[0], 7);
-        Deck3.PlayingCard c3 = d.new PlayingCard(Deck3.suitsInOrder[0], 9);
-        Deck3.Joker j1 = d.new Joker("black");
-        Deck3.PlayingCard m1 = d.new PlayingCard(Deck3.suitsInOrder[3], 2);
-        Deck3.PlayingCard m2 = d.new PlayingCard(Deck3.suitsInOrder[3], 3);
-        Deck3.PlayingCard m3 = d.new PlayingCard(Deck3.suitsInOrder[3], 4);
-        Deck3.Joker j2 = d.new Joker("red");
-        Deck3.PlayingCard l1 = d.new PlayingCard(Deck3.suitsInOrder[2], 11);
-        Deck3.PlayingCard l2 = d.new PlayingCard(Deck3.suitsInOrder[2], 12);
-        Deck3.PlayingCard l3 = d.new PlayingCard(Deck3.suitsInOrder[2], 13);
+        Deck.PlayingCard c1 = d.new PlayingCard(Deck.suitsInOrder[0], 5);
+        Deck.PlayingCard c2 = d.new PlayingCard(Deck.suitsInOrder[0], 7);
+        Deck.PlayingCard c3 = d.new PlayingCard(Deck.suitsInOrder[0], 9);
+        Deck.Joker j1 = d.new Joker("black");
+        Deck.PlayingCard m1 = d.new PlayingCard(Deck.suitsInOrder[3], 2);
+        Deck.PlayingCard m2 = d.new PlayingCard(Deck.suitsInOrder[3], 3);
+        Deck.PlayingCard m3 = d.new PlayingCard(Deck.suitsInOrder[3], 4);
+        Deck.Joker j2 = d.new Joker("red");
+        Deck.PlayingCard l1 = d.new PlayingCard(Deck.suitsInOrder[2], 11);
+        Deck.PlayingCard l2 = d.new PlayingCard(Deck.suitsInOrder[2], 12);
+        Deck.PlayingCard l3 = d.new PlayingCard(Deck.suitsInOrder[2], 13);
 
-        Deck3 testDeck = new Deck3();
+        Deck testDeck = new Deck();
 
         testDeck.addCard(c1);
         testDeck.addCard(c2);
@@ -294,33 +295,33 @@ public class TestsJuliaThoughtOf {
     @Test
     public void tripleCutCheckNextPrev() {
 
-        Deck3 d = new Deck3();
+        Deck d = new Deck();
 
-        Deck3.Card[] cards = new Deck3.Card[]{
-                d.new PlayingCard(Deck3.suitsInOrder[0], 5),
-                d.new PlayingCard(Deck3.suitsInOrder[0], 7),
-                d.new PlayingCard(Deck3.suitsInOrder[0], 9),
+        Deck.Card[] cards = new Deck.Card[]{
+                d.new PlayingCard(Deck.suitsInOrder[0], 5),
+                d.new PlayingCard(Deck.suitsInOrder[0], 7),
+                d.new PlayingCard(Deck.suitsInOrder[0], 9),
                 null,
-                d.new PlayingCard(Deck3.suitsInOrder[3], 2),
-                d.new PlayingCard(Deck3.suitsInOrder[3], 3),
-                d.new PlayingCard(Deck3.suitsInOrder[3], 4),
+                d.new PlayingCard(Deck.suitsInOrder[3], 2),
+                d.new PlayingCard(Deck.suitsInOrder[3], 3),
+                d.new PlayingCard(Deck.suitsInOrder[3], 4),
                 null,
-                d.new PlayingCard(Deck3.suitsInOrder[2], 11),
-                d.new PlayingCard(Deck3.suitsInOrder[2], 12),
-                d.new PlayingCard(Deck3.suitsInOrder[2], 13)
+                d.new PlayingCard(Deck.suitsInOrder[2], 11),
+                d.new PlayingCard(Deck.suitsInOrder[2], 12),
+                d.new PlayingCard(Deck.suitsInOrder[2], 13)
         };
 
-        Deck3.Joker j1 = d.new Joker("black");
-        Deck3.Joker j2 = d.new Joker("red");
+        Deck.Joker j1 = d.new Joker("black");
+        Deck.Joker j2 = d.new Joker("red");
 
         cards[3] = j1;
         cards[7] = j2;
 
-        for (Deck3.Card c : cards) {
+        for (Deck.Card c : cards) {
             d.addCard(c);
         }
 
-        Deck3.Card[] expected = new Deck3.Card[]{
+        Deck.Card[] expected = new Deck.Card[]{
                 cards[8], cards[9], cards[10],
                 cards[3], cards[4], cards[5], cards[6], cards[7],
                 cards[0], cards[1], cards[2]};
@@ -328,7 +329,7 @@ public class TestsJuliaThoughtOf {
 
         d.tripleCut(j1, j2);
 
-        Deck3.Card curNext = d.head;
+        Deck.Card curNext = d.head;
 
         //checking next references
         for (int i = 0; i < expected.length; i++) {
@@ -337,7 +338,7 @@ public class TestsJuliaThoughtOf {
             curNext = curNext.next;
         }
 
-        Deck3.Card curPrev = d.head.prev;
+        Deck.Card curPrev = d.head.prev;
 
         //checking prev references
         for (int j = expected.length - 1; j > 0; j--) {
@@ -351,29 +352,29 @@ public class TestsJuliaThoughtOf {
 
     @Test
     public void countCutCheckOrder() {
-        Deck3 d = new Deck3();
+        Deck d = new Deck();
 
-        Deck3.Card[] cards = new Deck3.Card[]{
-                d.new PlayingCard(Deck3.suitsInOrder[0], 11),
-                d.new PlayingCard(Deck3.suitsInOrder[0], 12),
-                d.new PlayingCard(Deck3.suitsInOrder[0], 13),
+        Deck.Card[] cards = new Deck.Card[]{
+                d.new PlayingCard(Deck.suitsInOrder[0], 11),
+                d.new PlayingCard(Deck.suitsInOrder[0], 12),
+                d.new PlayingCard(Deck.suitsInOrder[0], 13),
                 null,
-                d.new PlayingCard(Deck3.suitsInOrder[3], 2),
-                d.new PlayingCard(Deck3.suitsInOrder[3], 3),
-                d.new PlayingCard(Deck3.suitsInOrder[3], 4),
+                d.new PlayingCard(Deck.suitsInOrder[3], 2),
+                d.new PlayingCard(Deck.suitsInOrder[3], 3),
+                d.new PlayingCard(Deck.suitsInOrder[3], 4),
                 null,
-                d.new PlayingCard(Deck3.suitsInOrder[2], 9),
-                d.new PlayingCard(Deck3.suitsInOrder[2], 7),
-                d.new PlayingCard(Deck3.suitsInOrder[0], 5)
+                d.new PlayingCard(Deck.suitsInOrder[2], 9),
+                d.new PlayingCard(Deck.suitsInOrder[2], 7),
+                d.new PlayingCard(Deck.suitsInOrder[0], 5)
         };
 
-        Deck3.Joker j1 = d.new Joker("black");
-        Deck3.Joker j2 = d.new Joker("red");
+        Deck.Joker j1 = d.new Joker("black");
+        Deck.Joker j2 = d.new Joker("red");
 
         cards[3] = j1;
         cards[7] = j2;
 
-        for (Deck3.Card c : cards) {
+        for (Deck.Card c : cards) {
             d.addCard(c);
         }
 
@@ -385,33 +386,33 @@ public class TestsJuliaThoughtOf {
     @Test
     public void countCutCheckNextPrev() {
 
-        Deck3 d = new Deck3();
+        Deck d = new Deck();
 
-        Deck3.Card[] cards = new Deck3.Card[]{
-                d.new PlayingCard(Deck3.suitsInOrder[0], 2),
-                d.new PlayingCard(Deck3.suitsInOrder[0], 3),
-                d.new PlayingCard(Deck3.suitsInOrder[0], 4),
+        Deck.Card[] cards = new Deck.Card[]{
+                d.new PlayingCard(Deck.suitsInOrder[0], 2),
+                d.new PlayingCard(Deck.suitsInOrder[0], 3),
+                d.new PlayingCard(Deck.suitsInOrder[0], 4),
                 null,
-                d.new PlayingCard(Deck3.suitsInOrder[3], 10),
-                d.new PlayingCard(Deck3.suitsInOrder[3], 9),
-                d.new PlayingCard(Deck3.suitsInOrder[3], 8),
+                d.new PlayingCard(Deck.suitsInOrder[3], 10),
+                d.new PlayingCard(Deck.suitsInOrder[3], 9),
+                d.new PlayingCard(Deck.suitsInOrder[3], 8),
                 null,
-                d.new PlayingCard(Deck3.suitsInOrder[2], 11),
-                d.new PlayingCard(Deck3.suitsInOrder[2], 12),
-                d.new PlayingCard(Deck3.suitsInOrder[2], 2)
+                d.new PlayingCard(Deck.suitsInOrder[2], 11),
+                d.new PlayingCard(Deck.suitsInOrder[2], 12),
+                d.new PlayingCard(Deck.suitsInOrder[2], 2)
         };
 
-        Deck3.Joker j1 = d.new Joker("black");
-        Deck3.Joker j2 = d.new Joker("red");
+        Deck.Joker j1 = d.new Joker("black");
+        Deck.Joker j2 = d.new Joker("red");
 
         cards[3] = j1;
         cards[7] = j2;
 
-        for (Deck3.Card c : cards) {
+        for (Deck.Card c : cards) {
             d.addCard(c);
         }
 
-        Deck3.Card[] expected = new Deck3.Card[]{
+        Deck.Card[] expected = new Deck.Card[]{
                 cards[6], cards[7], cards[8],
                 cards[9], cards[0], cards[1], cards[2], cards[3],
                 cards[4], cards[5], cards[10]};
@@ -419,7 +420,7 @@ public class TestsJuliaThoughtOf {
 
         d.countCut();
 
-        Deck3.Card curNext = d.head;
+        Deck.Card curNext = d.head;
 
         //checking next references
         for (int i = 0; i < expected.length; i++) {
@@ -428,7 +429,7 @@ public class TestsJuliaThoughtOf {
             curNext = curNext.next;
         }
 
-        Deck3.Card curPrev = d.head.prev;
+        Deck.Card curPrev = d.head.prev;
 
         //checking prev references
         for (int j = expected.length - 1; j > 0; j--) {
