@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class TestsJuliaThoughtOf {
 
     public String deckToString(Deck d) {
-        //setting string to be first card of deck
+        //setting a string to be first card of deck
         String printedDeck = d.head.toString();
         Deck.Card iterator = d.head;
 
