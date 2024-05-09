@@ -63,7 +63,24 @@ public class SearchEngine {
 	 * This method will probably fit in about 30 lines.
 	 */
 	public void assignPageRanks(double epsilon) {
-		// TODO : Add code here
+		ArrayList<String> urls = internet.getVertices();
+
+		// Init all PR's to 1
+		for (String v : urls)
+			internet.setPageRank(v, 1.00);
+
+		ArrayList<Double> prs;
+		int conv = 0; // For checking convergence
+		do {
+			prs = computeRanks(urls);
+			conv = 0;
+			for (int i = 0; i < urls.size(); i++) {
+				if (Math.abs(internet.getPageRank(urls.get(i)) - prs.get(i)) < epsilon) {
+					conv++; // # of convergences needs to equal total number of URLs
+				}
+				internet.setPageRank(urls.get(i), prs.get(i));
+			}
+		} while (conv < urls.size());
 	}
 
 
